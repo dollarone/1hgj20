@@ -83,8 +83,9 @@ PlatformerGame.Game.prototype = {
   update: function() {
     if (!this.gameOver) {
         this.score += 1;
+        this.scoreText.text = 'score: ' + this.score;
     }
-    this.scoreText.text = 'score: ' + this.score;
+    
 
     //this.scrollPosition += this.playerSpeed;
     //this.ground.x -= this.scrollSpeed;
@@ -130,7 +131,10 @@ PlatformerGame.Game.prototype = {
   },
 
   playerOut : function() {
-    this.scrollSpeed = 0;
-    this.gameOver = true;
+    if (this.player.y > 0) {
+        this.scrollSpeed = 0;
+        this.gameOver = true;
+        this.scoreText.text = 'Score: ' + this.score + "\n\n\n\n\n\n\n\n\n\n                                        GAME OVER";
+    }
   }
 };
