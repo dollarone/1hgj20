@@ -73,7 +73,8 @@ PlatformerGame.Game.prototype = {
     this.player.animations.play('run');
     this.scrollSpeed = 3;
 
-    this.button = this.game.add.button(300, 100, 'button', this.actionOnClick, this, 0, 0, 1, 0);
+    this.button2 = this.game.add.button(570, 50, 'button2', this.reset, this, 0, 0, 1, 0);
+    this.button = this.game.add.button(570, 500, 'button', this.actionOnClick, this, 0, 0, 1, 0);
     //this.button.fixedToCamera = true;
     this.player.checkWorldBounds = true;
     this.player.events.onOutOfBounds.add(this.playerOut, this);
@@ -115,7 +116,9 @@ PlatformerGame.Game.prototype = {
     this.scoreText.text = 'Score: ' + this.score;
 
   },
-
+  reset : function() {
+    this.state.start('Game');   
+  },
   actionOnClick : function(player) {
     if (this.player.body.touching.down) {
         this.player.body.velocity.y = -350;
