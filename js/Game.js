@@ -9,10 +9,7 @@ PlatformerGame.Game.prototype = {
     this.player;
     this.platforms;
     this.cursors;
-
     this.stars;
-    this.score = 0;
-    this.scoreText;
 
     //  We're going to be using physics, so enable the Arcade Physics system
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -64,10 +61,18 @@ PlatformerGame.Game.prototype = {
 
 
     //  The score
-    this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = this.game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+    score = 0;
+
 
     //  Our controls.
     this.cursors = this.game.input.keyboard.createCursorKeys();
+    this.jump = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.rkey = this.game.input.keyboard.addKey(Phaser.Keyboard.R);
+    this.jump.onDown.add(this.actionOnClick, this);
+    this.rkey.onDown.add(this.reset, this);
+    
+
     this.game.camera.follow(this.player);
     this.playerSpeed = 0;
     this.player.animations.play('run');
@@ -83,13 +88,9 @@ PlatformerGame.Game.prototype = {
 
   update: function() {
     if (!this.gameOver) {
-        this.score += 1;
-        this.scoreText.text = 'score: ' + this.score;
+        score += 1;
+        scoreText.text = 'Score: ' + score;
     }
-    
-
-    //this.scrollPosition += this.playerSpeed;
-    //this.ground.x -= this.scrollSpeed;
     this.platforms.x -= this.scrollSpeed;
 
     //  Collide the player and the stars with the platforms
@@ -112,8 +113,8 @@ PlatformerGame.Game.prototype = {
     star.kill();
 
     //  Add and update the score
-    this.score += 10;
-    this.scoreText.text = 'Score: ' + this.score;
+    score += 10;
+    scoreText.text = 'Score: ' + score;
 
   },
   reset : function() {
@@ -127,7 +128,7 @@ PlatformerGame.Game.prototype = {
 
   createRandomTerrain : function() {
     if (this.game.rnd.integerInRange(1, 40) == 1) {
-    this.ledge = this.platforms.create(500 + this.score*3 + this.game.rnd.integerInRange(1, 200), 4 + this.game.rnd.integerInRange(1, 620), 'ground');
+    this.ledge = this.platforms.create(500 + score*3 + this.game.rnd.integerInRange(1, 200), 4 + this.game.rnd.integerInRange(1, 620), 'ground');
     this.ledge.body.immovable = true;
 
     }
@@ -137,7 +138,8 @@ PlatformerGame.Game.prototype = {
     if (this.player.y > 0) {
         this.scrollSpeed = 0;
         this.gameOver = true;
-        this.scoreText.text = 'Score: ' + this.score + "\n\n\n\n\n\n\n\n\n\n                                        GAME OVER";
+        scoreText.text = 'Score: ' + score + "\n\n\n\n\n\n\n\n\n\n                                        GAME OVER";
+        promptForNameAndSubmitHighscore(score);
     }
   }
 };
