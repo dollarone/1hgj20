@@ -85,7 +85,7 @@ function promptForNameAndSubmitHighscore(score) {
         person = "Gaben";
     } 
 
-    person = prompt(promptText, "Gaben");
+    person = prompt(promptText, person);
 	setCookie("name", person, 365);
 
     var xmlhttp;
