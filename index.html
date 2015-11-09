@@ -81,7 +81,7 @@ function promptForNameAndSubmitHighscore(score) {
 	}
 
 	var person = getCookie("name");
-    if (person == "") {
+    if (person == "" || person == "null" || person == null) {
         person = "Gaben";
     } 
 
