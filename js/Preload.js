@@ -18,7 +18,7 @@ PlatformerGame.Preload.prototype = {
     this.game.load.image('star', 'assets/star.png');
     this.game.load.spritesheet('button', 'assets/button.png', 190, 49, 2);
     this.game.load.spritesheet('button2', 'assets/button2.png', 190, 49, 2);
-    this.game.load.spritesheet('dude', 'assets/spritesheet_caveman.png', 32, 32, 4*4);
+    this.game.load.spritesheet('dude', 'assets/spritesheet_caveman2.png', 32, 33, 4*4);
   },
   create: function() {
     this.state.start('Game');
